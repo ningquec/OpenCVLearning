@@ -21,12 +21,18 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="plate_locate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OpenCVLearning.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="plate_locate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
