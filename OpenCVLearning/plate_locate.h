@@ -8,7 +8,7 @@ class PlateLocate
 public:
 	void process(cv::Mat img);
 
-	void rotateResult(cv::RotatedRect & rec);
+	cv::Mat rotateResult(cv::Mat image, cv::RotatedRect & rec);
 
 private:
 	bool verifySize(cv::RotatedRect &rec);

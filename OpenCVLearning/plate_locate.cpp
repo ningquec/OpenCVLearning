@@ -63,23 +63,47 @@ void PlateLocate::process(cv::Mat img)
 		{
 			++itc;
 			rects.push_back(mr);
-			setRotateRecToImg(img, mr);
+			//setRotateRecToImg(img, mr);
 		}
 	}
 
 	for (int i = 0; i < rects.size(); i++)
 	{
 		RotatedRect rec = rects.at(i);
-		rotateResult(rec);
+		Mat m = rotateResult(img, rec);
+
+		namedWindow("rec_img" + to_string(i));
+		imshow("rec_img" + to_string(i), m);
 	}
 	
 	namedWindow("Result image");
 	imshow("Result image", img);
 }
 
-void PlateLocate::rotateResult(cv::RotatedRect & rec)
+cv::Mat PlateLocate::rotateResult(cv::Mat image, cv::RotatedRect & rec)
 {
+	Mat rotate_mat = getRotationMatrix2D(		// 获取旋转矩阵
+		rec.center,
+		rec.angle, 1);
+	Mat affine_result;
+	warpAffine(image, affine_result, rotate_mat, image.size());// 仿射变换
 
+	Mat rec_img = affine_result(Rect(rec.center.x - (rec.size.width / 2), rec.center.y - (rec.size.height / 2),
+		rec.size.width, rec.size.height));
+	
+
+	return rec_img;
+
+
+	//cv::Point2f* vertices = new cv::Point2f[4];
+	//rec.points(vertices);
+	//for (int j = 0; j < 4; j++)
+	//{
+	//	cv::line(image, vertices[j], vertices[(j + 1) % 4], cv::Scalar(0, 255, 0));
+	//}
+
+	//namedWindow("rotate");
+	//imshow("rotate", image);
 }
 
 bool PlateLocate::verifySize(cv::RotatedRect & rec)
