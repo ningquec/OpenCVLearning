@@ -66,9 +66,20 @@ void PlateLocate::process(cv::Mat img)
 			setRotateRecToImg(img, mr);
 		}
 	}
+
+	for (int i = 0; i < rects.size(); i++)
+	{
+		RotatedRect rec = rects.at(i);
+		rotateResult(rec);
+	}
 	
 	namedWindow("Result image");
 	imshow("Result image", img);
+}
+
+void PlateLocate::rotateResult(cv::RotatedRect & rec)
+{
+
 }
 
 bool PlateLocate::verifySize(cv::RotatedRect & rec)
